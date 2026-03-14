@@ -6,8 +6,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/instalar-sistema', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true, '--seed' => true]);
-    \Illuminate\Support\Facades\Artisan::call('storage:link');
-    return '¡Instalación completada exitosamente! Ya puedes ir a /admin';
+Route::get('/reparar-acceso', function () {
+    $user = \App\Models\User::updateOrCreate(
+        ['email' => 'admin@email.co'],
+        [
+            'name' => 'Administrador EducoVota',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin123')
+        ]
+    );
+    return '¡Éxito! Base de datos forzada. Ya puedes ir a /admin e ingresar con Correo: admin@email.co y Contraseña: admin123';
 });
