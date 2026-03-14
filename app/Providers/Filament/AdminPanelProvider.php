@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         $config = null;
-		if (Schema::hasTable('configuraciones')) {
+		if (!app()->runningInConsole() && Schema::hasTable('configuraciones')) {
 			$config = Configuracion::first();
 		}
         
